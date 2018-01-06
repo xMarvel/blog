@@ -6,7 +6,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="https://xMarvel.github.io/"/>
-  <updated>2018-01-06T01:11:08.367Z</updated>
+  <updated>2018-01-06T15:16:03.938Z</updated>
   <id>https://xMarvel.github.io/</id>
   
   <author>
@@ -21,13 +21,21 @@
     <link href="https://xMarvel.github.io/2018/01/02/spring-boot-gradle-python/"/>
     <id>https://xMarvel.github.io/2018/01/02/spring-boot-gradle-python/</id>
     <published>2018-01-02T09:00:23.000Z</published>
-    <updated>2018-01-06T01:11:08.367Z</updated>
+    <updated>2018-01-06T15:16:03.938Z</updated>
     
-    <content type="html"><![CDATA[<p>在平时的开发过程中,我们用gradle构建spring boot项目,但是创建项目总会做一些重复琐碎的步骤,基于利用机器提高效率的原则,不如用Python来替我们完成这项工作。<br><a id="more"></a><br>tips:本文程序基于Python3.6和gradle4.0完成,Python3.6和gradle4.0的安装请自行完成不再赘述.</p><h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><ol><li><p>创建项目文件夹</p><ul><li>根据输入项目名称创建文件夹,如果文件夹存在直接停止操作</li></ul></li><li><p>执行gradle init 初始化gradle 项目的项目文件</p><ul><li>gradle init 命令主要初始化项目文件 build.gradle 等</li></ul></li><li><p>编辑build.gradle 设置插件、仓库地址,并增加常用依赖配置。</p><ul><li>build.gradle 增加使用了插件 java、gradle、idea</li><li>repositories 节点设置仓库地址.</li><li>依赖配置 dependencies 节点中配置项目中需要用到的外部引用.</li></ul></li><li><p>创建项目的基本目录结构并创建默认配置文件application.properties</p><ul><li>创建目录</li><li>src/main/java</li><li>src/main/resources</li><li>src/test/java</li><li>src/test/resources</li><li>在src/main/resources下创建application.properties</li></ul></li><li><p>执行gradle idea 构建项目,并用idea打开项目</p><ul><li>gradle idea 命令生成idea的项目文件,如<em>*</em>.ipr文件等</li><li>MAC 终端中执行open <em>*</em>.ipr 可以直接idea并打开项目</li></ul></li></ol><h3 id="源码分享"><a href="#源码分享" class="headerlink" title="源码分享"></a>源码分享</h3><p><a href="https://github.com" target="_blank" rel="noopener">源码下载</a></p><h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 init-gradle-idea-project.py -p demo-project</span><br></pre></td></tr></table></figure><p>demo-project 项目的名称 projectname</p><p>创建项目：<br><img src="demo-project.png" alt="创建项目"></p><p>项目目录结构：<br><img src="demo-project-idea.png" alt="项目目录结构"></p>]]></content>
+    <content type="html"><![CDATA[<h3 id="创建spring-boot项目的常规方式"><a href="#创建spring-boot项目的常规方式" class="headerlink" title="创建spring boot项目的常规方式"></a>创建spring boot项目的常规方式</h3><p>创建spring boot项目,一般有如下几种方式:</p><ol><li>使用start.spring.io,通过web界面工具实现</li><li>IDE 插件方式,通过IDE界面工具操作完成<ul><li>idea 自带的spring Initializr 插件</li><li>eclipse 的STS(Spring Tool Suite) 插件</li></ul></li><li>安装Spring boot CLI工具,通过命令行创建<a id="more"></a><h3 id="常规方式遇到的问题"><a href="#常规方式遇到的问题" class="headerlink" title="常规方式遇到的问题"></a>常规方式遇到的问题</h3></li></ol><p>以上几种方式底层实现都是基于start.spring.io提供的服务.所以最终效果是相似的.在使用过程中,遇到几个问题:</p><ul><li>没有生成 IDE 的项目文件，需要手动的将源代码导入到IDE中.<br>  如Intellij IDEA的 .ipr 工程文件、 .iml 模块文件、.iws 工作区文件, 使用.ipr可以直接打开项目.</li><li>自定义的配置需要重复添加,如私有的maven仓库地址、以及一些常用依赖项、插件等.</li><li>项目的构建需要基于IDE完成,但是IDE构建项目时经常出现缓存或是依赖项下载错误等原因导致的各种奇怪问题,所以可以用命令的形式进行项目构建编译等.从而摆脱IDE,仅把IDE作为编辑器使用.</li></ul><p>基于以上考虑,可以用Python脚本实现这些需求。</p><p>tips:本文程序基于Intellij IDEA、Python3.6和gradle4.0完成. Intellij IDEA、Python3.6和gradle4.0的安装请自行完成不再赘述.</p><h3 id="用Python脚本实现的思路"><a href="#用Python脚本实现的思路" class="headerlink" title="用Python脚本实现的思路"></a>用Python脚本实现的思路</h3><ol><li><p>根据输入项目名称创建项目文件夹</p><ul><li>如果文件夹存在直接停止操作.</li></ul></li><li><p>执行gradle init 初始化gradle 项目的项目文件</p><ul><li>gradle init 命令主要初始化gradle项目配置文件 build.gradle 和  settings.gradle</li></ul></li><li><p>编辑build.gradle 设置插件、仓库地址,并增加常用依赖配置。</p><ul><li>build.gradle 增加使用了插件 java、gradle、idea(eclipse)</li><li>repositories 节点设置仓库地址.</li><li>依赖配置 dependencies 节点中配置项目中需要用到的外部引用.</li></ul></li><li><p>创建项目的基本目录结构并创建默认配置文件application.properties</p><ul><li>创建目录</li><li>src/main/java</li><li>src/main/resources</li><li>src/test/java</li><li>src/test/resources</li><li>在src/main/resources下创建application.properties</li></ul></li><li><p>执行gradle idea(gradle eclipse)构建项目,并用idea打开项目</p><ul><li>gradle idea(gradle eclipse) 命令进行项目构建并生成基于IDE的项目文件(基于如Intellij idea的如<em>*</em>.ipr文件等)</li><li>直接双击.ipr 文件即可(MAC也可终端中执行open *.ipr)打开项目</li></ul></li></ol><h3 id="源码分享"><a href="#源码分享" class="headerlink" title="源码分享"></a>源码分享</h3><p><a href="https://github.com/xMarvel/init-gradle-idea-project" target="_blank" rel="noopener">源码下载</a></p><h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 init-gradle-idea-project.py -p demo-project</span><br></pre></td></tr></table></figure><p>demo-project 项目的名称 projectname</p><p>创建项目：<br><img src="demo-project.png" alt="创建项目"></p><p>项目目录结构：<br><img src="demo-project-idea.png" alt="项目目录结构"></p><p>如有问题欢迎指正.</p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;在平时的开发过程中,我们用gradle构建spring boot项目,但是创建项目总会做一些重复琐碎的步骤,基于利用机器提高效率的原则,不如用Python来替我们完成这项工作。&lt;br&gt;
+      &lt;h3 id=&quot;创建spring-boot项目的常规方式&quot;&gt;&lt;a href=&quot;#创建spring-boot项目的常规方式&quot; class=&quot;headerlink&quot; title=&quot;创建spring boot项目的常规方式&quot;&gt;&lt;/a&gt;创建spring boot项目的常规方式&lt;/h3&gt;&lt;p&gt;创建spring boot项目,一般有如下几种方式:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;使用start.spring.io,通过web界面工具实现&lt;/li&gt;
+&lt;li&gt;IDE 插件方式,通过IDE界面工具操作完成&lt;ul&gt;
+&lt;li&gt;idea 自带的spring Initializr 插件&lt;/li&gt;
+&lt;li&gt;eclipse 的STS(Spring Tool Suite) 插件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;安装Spring boot CLI工具,通过命令行创建
     
     </summary>
     
@@ -39,6 +47,8 @@
       <category term="spring boot" scheme="https://xMarvel.github.io/tags/spring-boot/"/>
     
       <category term="python" scheme="https://xMarvel.github.io/tags/python/"/>
+    
+      <category term="Intellij IDEA" scheme="https://xMarvel.github.io/tags/Intellij-IDEA/"/>
     
   </entry>
   
