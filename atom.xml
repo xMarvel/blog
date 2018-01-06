@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>xMarvel&#39;s blog</title>
+  
+  
+  <link href="/blog/atom.xml" rel="self"/>
+  
+  <link href="https://xMarvel.github.io/"/>
+  <updated>2018-01-06T01:11:08.367Z</updated>
+  <id>https://xMarvel.github.io/</id>
+  
+  <author>
+    <name>xMarvel team</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>用Python快速创建spring boot项目</title>
+    <link href="https://xMarvel.github.io/2018/01/02/spring-boot-gradle-python/"/>
+    <id>https://xMarvel.github.io/2018/01/02/spring-boot-gradle-python/</id>
+    <published>2018-01-02T09:00:23.000Z</published>
+    <updated>2018-01-06T01:11:08.367Z</updated>
+    
+    <content type="html"><![CDATA[<p>在平时的开发过程中,我们用gradle构建spring boot项目,但是创建项目总会做一些重复琐碎的步骤,基于利用机器提高效率的原则,不如用Python来替我们完成这项工作。<br><a id="more"></a><br>tips:本文程序基于Python3.6和gradle4.0完成,Python3.6和gradle4.0的安装请自行完成不再赘述.</p><h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><ol><li><p>创建项目文件夹</p><ul><li>根据输入项目名称创建文件夹,如果文件夹存在直接停止操作</li></ul></li><li><p>执行gradle init 初始化gradle 项目的项目文件</p><ul><li>gradle init 命令主要初始化项目文件 build.gradle 等</li></ul></li><li><p>编辑build.gradle 设置插件、仓库地址,并增加常用依赖配置。</p><ul><li>build.gradle 增加使用了插件 java、gradle、idea</li><li>repositories 节点设置仓库地址.</li><li>依赖配置 dependencies 节点中配置项目中需要用到的外部引用.</li></ul></li><li><p>创建项目的基本目录结构并创建默认配置文件application.properties</p><ul><li>创建目录</li><li>src/main/java</li><li>src/main/resources</li><li>src/test/java</li><li>src/test/resources</li><li>在src/main/resources下创建application.properties</li></ul></li><li><p>执行gradle idea 构建项目,并用idea打开项目</p><ul><li>gradle idea 命令生成idea的项目文件,如<em>*</em>.ipr文件等</li><li>MAC 终端中执行open <em>*</em>.ipr 可以直接idea并打开项目</li></ul></li></ol><h3 id="源码分享"><a href="#源码分享" class="headerlink" title="源码分享"></a>源码分享</h3><p><a href="https://github.com" target="_blank" rel="noopener">源码下载</a></p><h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 init-gradle-idea-project.py -p demo-project</span><br></pre></td></tr></table></figure><p>demo-project 项目的名称 projectname</p><p>创建项目：<br><img src="demo-project.png" alt="创建项目"></p><p>项目目录结构：<br><img src="demo-project-idea.png" alt="项目目录结构"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在平时的开发过程中,我们用gradle构建spring boot项目,但是创建项目总会做一些重复琐碎的步骤,基于利用机器提高效率的原则,不如用Python来替我们完成这项工作。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="spring boot" scheme="https://xMarvel.github.io/categories/spring-boot/"/>
+    
+    
+      <category term="gradle" scheme="https://xMarvel.github.io/tags/gradle/"/>
+    
+      <category term="spring boot" scheme="https://xMarvel.github.io/tags/spring-boot/"/>
+    
+      <category term="python" scheme="https://xMarvel.github.io/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://xMarvel.github.io/2018/01/01/hello-world/"/>
+    <id>https://xMarvel.github.io/2018/01/01/hello-world/</id>
+    <published>2017-12-31T16:00:00.000Z</published>
+    <updated>2018-01-02T16:23:40.027Z</updated>
+    
+    <content type="html"><![CDATA[<p>你好，世界。</p><p>为了沉淀和培养知识体系，诞生了这个博客。在这里将会分享书籍、技术文章等内容。</p><p>第一篇文章将会简单记录下创建blog的步骤。<br>本blog是由hexo进行构建，主题采用的Next。</p><a id="more"></a><h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>首先需要有node环境以及npm。如果没有，<a href="https://nodejs.org/en/" target="_blank" rel="noopener">请戳</a></p><h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init blog</span><br></pre></td></tr></table></figure><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="安装Next主题"><a href="#安装Next主题" class="headerlink" title="安装Next主题"></a>安装Next主题</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line"></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure><h4 id="启用主题"><a href="#启用主题" class="headerlink" title="启用主题"></a>启用主题</h4><p>编辑<strong>_config.yml</strong>文件，更换主题。<br><code>theme: next</code></p><h3 id="开启RSS订阅"><a href="#开启RSS订阅" class="headerlink" title="开启RSS订阅"></a>开启RSS订阅</h3><p>在blog根目录下安装RSS插件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-generator-feed</span><br></pre></td></tr></table></figure></p><h3 id="通过Git发布"><a href="#通过Git发布" class="headerlink" title="通过Git发布"></a>通过Git发布</h3><h4 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><h4 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: &lt;repository url&gt;</span><br><span class="line">  branch: [branch]</span><br><span class="line">  message: [message]</span><br></pre></td></tr></table></figure><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="新增文章"><a href="#新增文章" class="headerlink" title="新增文章"></a>新增文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>更多内容: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="本地服务器"><a href="#本地服务器" class="headerlink" title="本地服务器"></a>本地服务器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>更多内容: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="编译站点"><a href="#编译站点" class="headerlink" title="编译站点"></a>编译站点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>更多内容: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="发布站点"><a href="#发布站点" class="headerlink" title="发布站点"></a>发布站点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>更多内容: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;你好，世界。&lt;/p&gt;
+&lt;p&gt;为了沉淀和培养知识体系，诞生了这个博客。在这里将会分享书籍、技术文章等内容。&lt;/p&gt;
+&lt;p&gt;第一篇文章将会简单记录下创建blog的步骤。&lt;br&gt;本blog是由hexo进行构建，主题采用的Next。&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
