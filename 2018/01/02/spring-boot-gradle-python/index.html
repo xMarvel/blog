@@ -93,7 +93,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://xmarvel.github.io/2018/01/02/spring-boot-gradle-python/demo-project.png">
 <meta property="og:image" content="https://xmarvel.github.io/2018/01/02/spring-boot-gradle-python/demo-project-idea.png">
-<meta property="og:updated_time" content="2018-01-06T15:56:07.048Z">
+<meta property="og:updated_time" content="2018-01-31T15:58:15.189Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用Python快速创建spring boot项目">
 <meta name="twitter:description" content="创建spring boot项目的常规方式创建spring boot项目,一般有如下几种方式:  使用start.spring.io,通过web界面工具实现 IDE 插件方式,通过IDE界面工具操作完成 idea 自带的spring Initializr 插件 eclipse 的STS(Spring Tool Suite) 插件   安装Spring boot CLI工具,通过命令行创建">
@@ -349,7 +349,7 @@
 <p>基于以上考虑,可以用Python脚本实现这些需求。</p>
 <p>tips:本文程序基于Intellij IDEA、Python3.6和gradle4.0完成. Intellij IDEA、Python3.6和gradle4.0的安装请自行完成不再赘述.</p>
 <h3 id="用Python脚本实现的思路"><a href="#用Python脚本实现的思路" class="headerlink" title="用Python脚本实现的思路"></a>用Python脚本实现的思路</h3><ol>
-<li><p>根据输入项目名称创建项目文件夹</p>
+<li><p>根据输入项目名称artifact_id创建项目文件夹</p>
 <ul>
 <li>如果文件夹存在直接停止操作.</li>
 </ul>
@@ -366,26 +366,29 @@
 <li>依赖配置 dependencies 节点中配置项目中需要用到的外部引用.</li>
 </ul>
 </li>
-<li><p>创建项目的基本目录结构并创建默认配置文件application.properties</p>
+<li><p>创建项目的基本目录结构、创建application.java并创建默认配置文件application.properties</p>
 <ul>
-<li>创建目录</li>
-<li>src/main/java</li>
+<li>创建目录和文件<ul>
+<li>src/main/java/包名(如com.xxx为两级目录 /com/xxx)</li>
 <li>src/main/resources</li>
 <li>src/test/java</li>
 <li>src/test/resources</li>
+</ul>
+</li>
+<li>创建Application.java</li>
 <li>在src/main/resources下创建application.properties</li>
 </ul>
 </li>
 <li><p>执行gradle idea(gradle eclipse)构建项目,并用idea打开项目</p>
 <ul>
-<li>gradle idea(gradle eclipse) 命令进行项目构建并生成基于IDE的项目文件(基于如Intellij idea的如<em>*</em>.ipr文件等)</li>
+<li>gradle idea(gradle eclipse) 命令进行项目构建并生成基于IDE的项目文件(基于如Intellij idea的如<em>*</em>.ipr文件等) </li>
 <li>直接双击.ipr 文件即可(MAC也可终端中执行open *.ipr)打开项目</li>
 </ul>
 </li>
 </ol>
 <h3 id="源码分享"><a href="#源码分享" class="headerlink" title="源码分享"></a>源码分享</h3><p><a href="https://github.com/xMarvel/init-gradle-idea-project" target="_blank" rel="noopener">源码下载</a></p>
-<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 init-gradle-idea-project.py -p demo-project</span><br></pre></td></tr></table></figure>
-<p>demo-project 项目的名称 projectname</p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">python3 init-gradle-idea-project.py -g group_id -a artifact_id</span><br><span class="line"></span><br><span class="line">optional arguments:</span><br><span class="line">  -h, --help            show this help message <span class="keyword">and</span> exit</span><br><span class="line">  -g GROUP_ID, --group_id GROUP_ID   input group_id</span><br><span class="line">  -a ARTIFACT_ID, --artifact_id ARTIFACT_ID   input artifact_id</span><br></pre></td></tr></table></figure>
+<p>-g 为 group_id<br>-a 为 artifact_id</p>
 <p>创建项目：<br><img src="demo-project.png" alt="创建项目"></p>
 <p>项目目录结构：<br><img src="demo-project-idea.png" alt="项目目录结构"></p>
 <p>如有问题欢迎指正.</p>
@@ -434,6 +437,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2018/01/13/spring-data-jpa/" rel="prev" title="spring data jpa 的使用(一)">
+                spring data jpa 的使用(一) <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -510,7 +517,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -532,7 +539,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
